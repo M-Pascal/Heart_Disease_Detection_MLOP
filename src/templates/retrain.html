@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrain Model | MEDIBuddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/retrain.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back to home link -->
+        <div class="back-home">
+            <a href="{{ url_for('home') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
+        </div>
+
+        <div class="retrain-form-container">
+            <h1 class="form-title">Retrain Model</h1>
+            <p class="form-subtitle">Upload your dataset to improve the model</p>
+            
+            <form class="upload-form" action="#" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="dataset-upload" class="file-upload-label">
+                        <i class="ri-upload-cloud-2-line"></i>
+                        <span>Choose Dataset File</span>
+                        <input type="file" id="dataset-upload" name="dataset" accept=".csv,.xlsx,.json" required>
+                    </label>
+                    <p class="file-requirements">Supported formats: CSV, XLSX, JSON</p>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">
+                        <i class="ri-refresh-line"></i> Retrain Model
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

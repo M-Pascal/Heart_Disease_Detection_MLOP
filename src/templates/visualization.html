@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizations | MEDIBuddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/visualization.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back to home link -->
+        <div class="back-home">
+            <a href="{{ url_for('home') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
+        </div>
+
+        <h1 class="page-title">Data Visualizations</h1>
+        
+        <div class="cards-container">
+            <!-- First Row - 3 cards -->
+            <div class="card">
+                <div class="card-image">
+                    <img src="../static/Assets/1.png" alt="Visualization 1">
+                </div>
+                <div class="card-content">
+                    <h3>Card 1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="card-image">
+                    <img src="../static/Assets/2.png" alt="Visualization 2">
+                </div>
+                <div class="card-content">
+                    <h3>Card 2</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="card-image">
+                    <img src="../static/Assets/3.png" alt="Visualization 3">
+                </div>
+                <div class="card-content">
+                    <h3>Card 3</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                </div>
+            </div>
+        
+            <!-- Second Row - 2 cards (1 regular + 1 wide) -->
+            <div class="second-row">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="../static/Assets/4.png" alt="Visualization 4">
+                    </div>
+                    <div class="card-content">
+                        <h3>Card 4</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    </div>
+                </div>
+        
+                <div class="card wide-card">
+                    <div class="card-image">
+                        <img src="../static/Assets/5.png" alt="Visualization 5">
+                    </div>
+                    <div class="card-content">
+                        <h3>Card 5</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
