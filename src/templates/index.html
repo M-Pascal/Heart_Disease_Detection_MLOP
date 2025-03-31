@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
     <title>AI-Corazón</title>
   </head>
@@ -15,12 +12,12 @@
       <nav>
         <div class="nav__logo">AI-Corazón</div>
         <ul class="nav__links">
-          <li class="link"><a href="{{ url_for('home') }}">Home</a></li>
-          <li class="link"><a href="{{ url_for('predict') }}">Prediction</a></li>
+          <li class="link"><a href="{{ url_for('index') }}">Home</a></li>
+          <li class="link"><a href="{{ url_for('show_form') }}">Prediction</a></li>
           <li class="link"><a href="{{ url_for('visualize') }}">Visualize</a></li>
           <li class="link"><a href="{{ url_for('retrain') }}">Retrain</a></li>
         </ul>
-        <button class="btn" onclick="window.location.href='{{ url_for('retrain') }}'">Get Started</button>
+        <button class="btn" onclick="window.location.href='{{ url_for('show_form') }}'">Get Started</button>
       </nav>
       <header class="header">
         <div class="content">
@@ -32,7 +29,7 @@
             risks. Advanced technology, lifestyle changes, and healthcare access
             are key to combating this growing epidemic effectively.
           </p>
-          <button class="btn" onclick="window.location.href='{{ url_for('predict') }}'">Predict</button>
+          <button class="btn" onclick="window.location.href='{{ url_for('show_form') }}'">Predict</button>
         </div>
         <div class="image">
           <span class="image__bg"></span>

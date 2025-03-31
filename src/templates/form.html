@@ -10,15 +10,12 @@
 </head>
 <body>
   <div class="container">
-    <!-- Back to home link -->
     <div class="back-home">
-      <a href="{{ url_for('home') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
+      <a href="{{ url_for('index') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
     </div>
     
-    <!-- Title section -->
     <div class="title">Heart Disease Prediction</div>
     
-    <!-- Flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <div class="flash-messages">
@@ -30,8 +27,8 @@
     {% endwith %}
     
     <div class="content">
-      <!-- Prediction form -->
       <form action="{{ url_for('predict') }}" method="POST">
+        <!-- Prediction form -->
         <div class="user-details">
           <!-- Age -->
           <div class="input-box">
@@ -144,18 +141,33 @@
             </select>
           </div>
         </div>
+        <!-- ... -->
         
-        <!-- Submit button -->
         <div class="button">
           <input type="submit" value="Predict" class="predict-btn">
         </div>
         
-        <!-- Loading indicator -->
         <div class="loading-indicator" id="loadingIndicator">
           <div class="spinner"></div>
           <span>Processing your request...</span>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div class="modal" id="resultModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Prediction Result</h3>
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p id="predictionResult"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn predict-again">Predict Again</button>
+        <button class="btn close-modal-btn">Close</button>
+      </div>
     </div>
   </div>
   <script src="{{ url_for('static', filename='js/form.js') }}"></script>

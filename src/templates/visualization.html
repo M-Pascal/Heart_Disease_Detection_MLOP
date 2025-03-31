@@ -12,7 +12,7 @@
     <div class="container">
         <!-- Back to home link -->
         <div class="back-home">
-            <a href="{{ url_for('home') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
+            <a href="{{ url_for('index') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
         </div>
 
         <h1 class="page-title">Data Visualizations</h1>
@@ -21,7 +21,7 @@
             <!-- First Row - 3 cards -->
             <div class="card">
                 <div class="card-image">
-                    <img src="{{ url_for('static', filename='Assets/1.png') }}" alt="Visualization 1">
+                    <img src="{{ url_for('static', filename='Assets/1.png') }}" alt="Age Distribution">
                 </div>
                 <div class="card-content">
                     <h3>Age Distribution</h3>
@@ -31,7 +31,7 @@
         
             <div class="card">
                 <div class="card-image">
-                    <img src="{{ url_for('static', filename='Assets/2.png') }}" alt="Visualization 2">
+                    <img src="{{ url_for('static', filename='Assets/2.png') }}" alt="Gender Analysis">
                 </div>
                 <div class="card-content">
                     <h3>Gender Analysis</h3>
@@ -41,7 +41,7 @@
         
             <div class="card">
                 <div class="card-image">
-                    <img src="{{ url_for('static', filename='Assets/3.png') }}" alt="Visualization 3">
+                    <img src="{{ url_for('static', filename='Assets/3.png') }}" alt="Chest Pain Types">
                 </div>
                 <div class="card-content">
                     <h3>Chest Pain Types</h3>
@@ -49,11 +49,11 @@
                 </div>
             </div>
         
-            <!-- Second Row - 2 cards (1 regular + 1 wide) -->
+            <!-- Second Row - 2 cards -->
             <div class="second-row">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{ url_for('static', filename='Assets/4.png') }}" alt="Visualization 4">
+                        <img src="{{ url_for('static', filename='Assets/4.png') }}" alt="Blood Pressure">
                     </div>
                     <div class="card-content">
                         <h3>Blood Pressure</h3>
@@ -63,7 +63,7 @@
         
                 <div class="card wide-card">
                     <div class="card-image">
-                        <img src="{{ url_for('static', filename='Assets/5.png') }}" alt="Visualization 5">
+                        <img src="{{ url_for('static', filename='Assets/5.png') }}" alt="Feature Importance">
                     </div>
                     <div class="card-content">
                         <h3>Feature Importance</h3>
