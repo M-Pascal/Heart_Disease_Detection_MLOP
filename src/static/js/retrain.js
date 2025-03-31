@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('dataset-upload');
     const fileLabel = document.querySelector('.file-upload-label span');
     const loadingIndicator = document.getElementById('loadingIndicator');
+    const flashMessages = document.querySelector('.flash-messages');
     
     if (fileInput) {
         fileInput.addEventListener('change', function() {
@@ -15,8 +16,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (form) {
-        form.addEventListener('submit', function() {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
             loadingIndicator.style.display = 'flex';
+            
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('/retrain', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingIndicator.style.display = 'none';
+                
+                // Create error message element
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'flash-error';
+                errorDiv.textContent = 'An error occurred during retraining';
+                flashMessages.appendChild(errorDiv);
+            }
         });
     }
 });

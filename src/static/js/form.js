@@ -12,12 +12,13 @@ document.addEventListener('DOMContentLoaded', function() {
           loadingIndicator.style.display = 'flex';
           
           try {
+              const formData = new FormData(form);
               const response = await fetch('/predict', {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/x-www-form-urlencoded',
                   },
-                  body: new URLSearchParams(new FormData(form))
+                  body: new URLSearchParams(formData)
               });
               
               const data = await response.json();
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <strong>Result:</strong> ${data.message}<br><br>
                   <i class="${data.result === 1 ? 'ri-alarm-warning-line' : 'ri-heart-line'}"></i>
                   ${data.result === 1 ? 'Please consult a healthcare professional.' : 'Maintain your healthy habits!'}
+                  ${data.probability ? `<br><small>Probability: ${(data.probability * 100).toFixed(1)}%</small>` : ''}
               `;
               
               modal.style.display = 'block';
