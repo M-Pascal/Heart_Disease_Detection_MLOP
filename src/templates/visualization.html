@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizations | MEDIBuddy</title>
+    <title>Visualizations | AI-Corazón</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/visualization.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/visualization.css') }}">
 </head>
 <body>
     <div class="container">
@@ -20,31 +21,31 @@
             <!-- First Row - 3 cards -->
             <div class="card">
                 <div class="card-image">
-                    <img src="../static/Assets/1.png" alt="Visualization 1">
+                    <img src="{{ url_for('static', filename='Assets/1.png') }}" alt="Visualization 1">
                 </div>
                 <div class="card-content">
-                    <h3>Card 1</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    <h3>Age Distribution</h3>
+                    <p>Distribution of patients by age groups showing prevalence of heart disease</p>
                 </div>
             </div>
         
             <div class="card">
                 <div class="card-image">
-                    <img src="../static/Assets/2.png" alt="Visualization 2">
+                    <img src="{{ url_for('static', filename='Assets/2.png') }}" alt="Visualization 2">
                 </div>
                 <div class="card-content">
-                    <h3>Card 2</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    <h3>Gender Analysis</h3>
+                    <p>Comparison of heart disease prevalence between male and female patients</p>
                 </div>
             </div>
         
             <div class="card">
                 <div class="card-image">
-                    <img src="../static/Assets/3.png" alt="Visualization 3">
+                    <img src="{{ url_for('static', filename='Assets/3.png') }}" alt="Visualization 3">
                 </div>
                 <div class="card-content">
-                    <h3>Card 3</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    <h3>Chest Pain Types</h3>
+                    <p>Distribution of different chest pain types among patients with heart disease</p>
                 </div>
             </div>
         
@@ -52,25 +53,26 @@
             <div class="second-row">
                 <div class="card">
                     <div class="card-image">
-                        <img src="../static/Assets/4.png" alt="Visualization 4">
+                        <img src="{{ url_for('static', filename='Assets/4.png') }}" alt="Visualization 4">
                     </div>
                     <div class="card-content">
-                        <h3>Card 4</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        <h3>Blood Pressure</h3>
+                        <p>Resting blood pressure distribution among patients with and without heart disease</p>
                     </div>
                 </div>
         
                 <div class="card wide-card">
                     <div class="card-image">
-                        <img src="../static/Assets/5.png" alt="Visualization 5">
+                        <img src="{{ url_for('static', filename='Assets/5.png') }}" alt="Visualization 5">
                     </div>
                     <div class="card-content">
-                        <h3>Card 5</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        <h3>Feature Importance</h3>
+                        <p>Relative importance of different features in predicting heart disease</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/visualization.js') }}"></script>
 </body>
 </html>
