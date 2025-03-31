@@ -20,7 +20,13 @@
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
-                        <div class="flash-{{ category }}">{{ message }}</div>
+                        <div class="flash-{{ category }}">
+                            <i class="ri-{{ 'checkbox-circle-line' if category == 'success' else 'error-warning-line' }}"></i>
+                            {{ message }}
+                            {% if category == 'success' and accuracy %}
+                                <span class="accuracy-display">Accuracy: {{ accuracy }}</span>
+                            {% endif %}
+                        </div>
                     {% endfor %}
                 </div>
             {% endif %}

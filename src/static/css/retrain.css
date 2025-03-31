@@ -306,3 +306,45 @@
     color: #155724;
     margin-left: 0.5rem;
 }
+
+/* Displaying accuracy */
+/* Flash messages styles */
+.flash-messages {
+    margin-bottom: 2rem;
+}
+
+.flash-success, .flash-error {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.flash-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.flash-error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.flash-success i {
+    color: #28a745;
+}
+
+.flash-error i {
+    color: #dc3545;
+}
+
+.accuracy-display {
+    font-weight: bold;
+    margin-left: 0.5rem;
+    color: inherit;
+}

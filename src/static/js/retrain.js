@@ -27,8 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: formData
                 });
                 
-                if (response.redirected) {
-                    window.location.href = response.url;
+                if (response.ok) {
+                    // The server will return the HTML with the flash message
+                    const html = await response.text();
+                    document.documentElement.innerHTML = html;
+                } else {
+                    throw new Error('Network response was not ok');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -37,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Create error message element
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'flash-error';
-                errorDiv.textContent = 'An error occurred during retraining';
+                errorDiv.innerHTML = '<i class="ri-error-warning-line"></i> An error occurred during retraining';
                 flashMessages.appendChild(errorDiv);
             }
         });
