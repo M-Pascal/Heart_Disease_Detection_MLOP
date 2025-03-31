@@ -70,7 +70,6 @@ python -m flask --app .\app.py run
 Access web-page via this link: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ## Demo-Video
 [![Watch the video](https://img.youtube.com/vi/5aYpkLfkgRE/maxresdefault.jpg)](https://youtu.be/5aYpkLfkgRE)
-
 ### [Demo video_Template](https://youtu.be/5aYpkLfkgRE)
 
 ### Author
