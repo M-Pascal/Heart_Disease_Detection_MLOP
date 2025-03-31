@@ -74,8 +74,5 @@ Access web-page via this link: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ### [Demo video_Template](https://youtu.be/5aYpkLfkgRE)
 
 ### Author
-> Done by Pascal Mugisha
-```bash
-\n
-```
+> Done by Pascal Mugisha <br>
 > Email: [p.mugisha@alustudent.com](p.mugisha@alustudent.com)
