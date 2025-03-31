@@ -348,3 +348,39 @@
     margin-left: 0.5rem;
     color: inherit;
 }
+
+
+/* updates */
+/* Add these styles to your retrain.css */
+.retrain-status {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.retrain-status.success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    display: flex;
+}
+
+.retrain-status.error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    display: flex;
+}
+
+.retrain-status i {
+    font-size: 1.2rem;
+}
+
+.accuracy-display {
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
