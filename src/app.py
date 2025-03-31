@@ -66,13 +66,11 @@ def visualize():
 def retrain():
     if request.method == 'POST':
         if 'dataset' not in request.files:
-            flash('No file part', 'error')
-            return redirect(request.url)
+            return jsonify({'status': 'error', 'message': 'No file part'})
         
         file = request.files['dataset']
         if file.filename == '':
-            flash('No selected file', 'error')
-            return redirect(request.url)
+            return jsonify({'status': 'error', 'message': 'No selected file'})
         
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -80,15 +78,15 @@ def retrain():
             file.save(filepath)
             
             try:
-                X, y = preprocess_data(filepath)  # Preprocess data
-                model, accuracy = train_model(filepath)  # Train the model
+                X, y = preprocess_data(filepath)
+                model, accuracy = train_model(filepath)
                 
                 categorical_cols = ['sex', 'chest_pain_type', 'fasting_blood_sugar',
                                   'resting_electrocardiogram', 'exercise_induced_angina',
                                   'st_slope', 'thalassemia']
                 
                 label_encoders = {}
-                df = pd.read_csv(filepath)  # Load dataset
+                df = pd.read_csv(filepath)
                 for col in categorical_cols:
                     if col in df.columns:
                         le = LabelEncoder()
@@ -98,12 +96,18 @@ def retrain():
                 os.makedirs('models', exist_ok=True)
                 joblib.dump(label_encoders, 'models/label_encoders.pkl')
                 
-                flash(f'Model retrained successfully! Accuracy: {accuracy:.2%}', 'success')
-                return redirect(url_for('retrain'))
+                accuracy_percent = f"{accuracy:.2%}"
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Model retrained successfully!',
+                    'accuracy': accuracy_percent
+                })
                 
             except Exception as e:
-                flash(f'Error during retraining: {str(e)}', 'error')
-                return redirect(request.url)
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Error during retraining: {str(e)}'
+                })
     
     return render_template('retrain.html')
 
