@@ -3,33 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heart Disease Prediction Form | MEDIBuddy</title>
-  <link rel="stylesheet" href="../static/styles.css">
+  <title>Heart Disease Prediction Form | AI-Corazón</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <!-- Back to home link -->
     <div class="back-home">
-      <a href="/"><i class="ri-arrow-left-line"></i> Back to Home</a>
+      <a href="{{ url_for('home') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
     </div>
     
     <!-- Title section -->
     <div class="title">Heart Disease Prediction</div>
+    
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    
     <div class="content">
       <!-- Prediction form -->
-      <form action="#">
+      <form action="{{ url_for('predict') }}" method="POST">
         <div class="user-details">
           <!-- Age -->
           <div class="input-box">
             <span class="details">Age</span>
-            <input type="number" placeholder="Enter your age" required min="18" max="120">
+            <input type="number" name="age" placeholder="Enter your age" required min="18" max="120">
           </div>
           
           <!-- Sex -->
           <div class="input-box">
             <span class="details">Sex</span>
-            <select required>
+            <select name="sex" required>
               <option value="" disabled selected>Select sex</option>
               <option value="0">Female</option>
               <option value="1">Male</option>
@@ -39,7 +52,7 @@
           <!-- Chest Pain Type -->
           <div class="input-box">
             <span class="details">Chest Pain Type</span>
-            <select required>
+            <select name="cp" required>
               <option value="" disabled selected>Select chest pain type</option>
               <option value="0">Typical Angina</option>
               <option value="1">Atypical Angina</option>
@@ -51,19 +64,19 @@
           <!-- Resting Blood Pressure -->
           <div class="input-box">
             <span class="details">Resting Blood Pressure (mm Hg)</span>
-            <input type="number" placeholder="Enter resting BP" required min="80" max="200">
+            <input type="number" name="trestbps" placeholder="Enter resting BP" required min="80" max="200">
           </div>
           
           <!-- Cholesterol -->
           <div class="input-box">
             <span class="details">Cholesterol (mg/dl)</span>
-            <input type="number" placeholder="Enter cholesterol level" required min="100" max="600">
+            <input type="number" name="chol" placeholder="Enter cholesterol level" required min="100" max="600">
           </div>
           
           <!-- Fasting Blood Sugar -->
           <div class="input-box">
             <span class="details">Fasting Blood Sugar</span>
-            <select required>
+            <select name="fbs" required>
               <option value="" disabled selected>Select fasting blood sugar</option>
               <option value="0">Lower than 120mg/ml</option>
               <option value="1">Greater than 120mg/ml</option>
@@ -73,7 +86,7 @@
           <!-- Resting Electrocardiogram -->
           <div class="input-box">
             <span class="details">Resting ECG</span>
-            <select required>
+            <select name="restecg" required>
               <option value="" disabled selected>Select resting ECG</option>
               <option value="0">Normal</option>
               <option value="1">ST-T Wave Abnormality</option>
@@ -83,14 +96,14 @@
           
           <!-- Max Heart Rate Achieved -->
           <div class="input-box">
-            <span class="details">Max Heart Rate Achieved</span>
-            <input type="number" placeholder="Enter max heart rate" required min="60" max="220">
+            <span class="details"><b>Max Heart Rate Achieved</b></span>
+            <input type="number" name="thalach" placeholder="Enter max heart rate" required min="60" max="220">
           </div>
           
           <!-- Exercise Induced Angina -->
           <div class="input-box">
             <span class="details">Exercise Induced Angina</span>
-            <select required>
+            <select name="exang" required>
               <option value="" disabled selected>Select option</option>
               <option value="0">No</option>
               <option value="1">Yes</option>
@@ -100,13 +113,13 @@
           <!-- ST Depression -->
           <div class="input-box">
             <span class="details">ST Depression</span>
-            <input type="number" step="0.1" placeholder="Enter ST depression" required min="0" max="10">
+            <input type="number" step="0.1" name="oldpeak" placeholder="Enter ST depression" required min="0" max="10">
           </div>
           
           <!-- ST Slope -->
           <div class="input-box">
             <span class="details">ST Slope</span>
-            <select required>
+            <select name="slope" required>
               <option value="" disabled selected>Select ST slope</option>
               <option value="0">Upsloping</option>
               <option value="1">Flat</option>
@@ -117,13 +130,13 @@
           <!-- Number of Major Vessels -->
           <div class="input-box">
             <span class="details">Number of Major Vessels</span>
-            <input type="number" placeholder="Enter number (0-3)" required min="0" max="3">
+            <input type="number" name="ca" placeholder="Enter number (0-3)" required min="0" max="3">
           </div>
           
           <!-- Thalassemia -->
           <div class="input-box">
             <span class="details">Thalassemia</span>
-            <select required>
+            <select name="thal" required>
               <option value="" disabled selected>Select thalassemia type</option>
               <option value="1">Fixed Defect</option>
               <option value="2">Normal</option>
@@ -134,10 +147,17 @@
         
         <!-- Submit button -->
         <div class="button">
-          <input type="submit" value="Predict">
+          <input type="submit" value="Predict" class="predict-btn">
+        </div>
+        
+        <!-- Loading indicator -->
+        <div class="loading-indicator" id="loadingIndicator">
+          <div class="spinner"></div>
+          <span>Processing your request...</span>
         </div>
       </form>
     </div>
   </div>
+  <script src="{{ url_for('static', filename='js/form.js') }}"></script>
 </body>
 </html>
