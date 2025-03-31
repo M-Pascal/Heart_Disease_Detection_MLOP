@@ -15,11 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (form) {
-        form.addEventListener('submit', function(e) {
-            // Show loading indicator
+        form.addEventListener('submit', function() {
             loadingIndicator.style.display = 'flex';
-            
-            // You could add additional validation here
         });
     }
 });
