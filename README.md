@@ -65,7 +65,7 @@ uvicorn src.api:app --reload
 Access it via this link: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 2. Start the Flask Web-App using a new terminal (open new terminal):
 ```bash
-python -m flask --app .\app.py run
+flask --app app.py run
 ```
 Access web-page via this link: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ## Demo-Video
