@@ -4,10 +4,10 @@ import pandas as pd
 import requests
 import joblib
 from pathlib import Path
-from model import train_model
-from preprocess import preprocess_data
+from .model import train_model
+from .preprocess import preprocess_data
 from sklearn.preprocessing import LabelEncoder
-from database import (
+from .database import (
     clear_existing_data, 
     save_to_database, 
     load_from_database, 

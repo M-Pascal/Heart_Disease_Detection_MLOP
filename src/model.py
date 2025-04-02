@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import joblib
 import os
-from preprocess import preprocess_data
+from .preprocess import preprocess_data
 from sklearn.metrics import accuracy_score
 
 def train_model(file_path):

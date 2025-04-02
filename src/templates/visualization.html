@@ -15,7 +15,7 @@
             <a href="{{ url_for('index') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
         </div>
 
-        <h1 class="page-title">Data Visualizations</h1>
+        <h1 class="page-title">Model Performance Visualizations</h1>
         
         <div class="cards-container">
             <!-- First Row - 3 cards -->
@@ -24,18 +24,18 @@
                     <img src="{{ url_for('static', filename='Assets/1.png') }}" alt="Age Distribution">
                 </div>
                 <div class="card-content">
-                    <h3>Age Distribution</h3>
-                    <p>Distribution of patients by age groups showing prevalence of heart disease</p>
+                    <h3>Class Distribution</h3>
+                    <p>The <i>Class Distribution graph</i> represents the distribution of the target variable, showing the number of patients with and without heart disease. The dataset appears nearly balanced, which is important for training models effectively without bias towards one class.</p>
                 </div>
             </div>
         
             <div class="card">
                 <div class="card-image">
-                    <img src="{{ url_for('static', filename='Assets/2.png') }}" alt="Gender Analysis">
+                    <img src="{{ url_for('static', filename='Assets/2.png') }}" alt="Confusion Matrix">
                 </div>
                 <div class="card-content">
-                    <h3>Gender Analysis</h3>
-                    <p>Comparison of heart disease prevalence between male and female patients</p>
+                    <h3>Logistic Regression Model</h3>
+                    <p>This Confusion Matrix visualizes the actual vs. predicted classifications for heart disease. While the model correctly identifies many cases, it also misclassifies some patients, indicating areas where improvement may be needed. Despite its simplicity, logistic regression provides a solid baseline for comparison.</p>
                 </div>
             </div>
         
@@ -44,8 +44,8 @@
                     <img src="{{ url_for('static', filename='Assets/3.png') }}" alt="Chest Pain Types">
                 </div>
                 <div class="card-content">
-                    <h3>Chest Pain Types</h3>
-                    <p>Distribution of different chest pain types among patients with heart disease</p>
+                    <h3>Random Forest Model</h3>
+                    <p>The Random Forest Model Confusion Matrix displays the classification results using the Random Forest algorithm. This model demonstrates a stronger ability to differentiate between heart disease and non-heart disease cases compared to logistic regression, with fewer misclassifications. This suggests that the ensemble learning approach of Random Forest is beneficial for this task.</p>
                 </div>
             </div>
         
@@ -53,11 +53,11 @@
             <div class="second-row">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{ url_for('static', filename='Assets/4.png') }}" alt="Blood Pressure">
+                        <img src="{{ url_for('static', filename='Assets/4.png') }}" alt="Confusion Matrix">
                     </div>
                     <div class="card-content">
-                        <h3>Blood Pressure</h3>
-                        <p>Resting blood pressure distribution among patients with and without heart disease</p>
+                        <h3>Neuron Network Model</h3>
+                        <p>This Neural Network Model Confusion Matrix provides an evaluation of a deep learning approach in predicting heart disease. The neural network shows improved classification performance over logistic regression, with fewer misclassified cases. This indicates that the model is learning complex patterns in the data, which enhances its predictive capabilities.</p>
                     </div>
                 </div>
         
@@ -66,8 +66,8 @@
                         <img src="{{ url_for('static', filename='Assets/5.png') }}" alt="Feature Importance">
                     </div>
                     <div class="card-content">
-                        <h3>Feature Importance</h3>
-                        <p>Relative importance of different features in predicting heart disease</p>
+                        <h3>Loss Curve (NN)</h3>
+                        <p>The Loss Curve for the Neural Network tracks the training and validation loss over multiple epochs. The downward trend in both curves suggests that the model is learning effectively, reducing errors with each epoch. However, the slight gap between the training and validation loss towards the end hints at potential overfitting, meaning the model might be performing slightly better on training data than on unseen validation data.</p>
                     </div>
                 </div>
             </div>
