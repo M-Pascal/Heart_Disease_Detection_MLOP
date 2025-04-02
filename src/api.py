@@ -59,12 +59,12 @@ async def predict(input_data: PredictionInput):
         }
 
         if prediction == 1:
-            if probability_of_heart_disease is not None and probability_of_heart_disease > 0.8:
+            if probability_of_heart_disease is not None and probability_of_heart_disease > 0.6:
                 response["message"] = "High risk! Urgent medical consultation needed."
             else:
                 response["message"] = "You are more likely to get heart disease. Consult a doctor."
         else:
-            if probability_of_heart_disease is not None and probability_of_heart_disease < 0.2:
+            if probability_of_heart_disease is not None and probability_of_heart_disease < 0.4:
                 response["message"] = "You seem very healthy. Keep maintaining your lifestyle!"
             else:
                 response["message"] = "Low risk of heart disease, but consider regular checkups."
