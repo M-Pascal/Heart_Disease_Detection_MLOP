@@ -1,3 +1,4 @@
+# preprocess.py
 import pandas as pd
 import numpy as np
 from sklearn.impute import SimpleImputer
@@ -8,13 +9,7 @@ import os
 
 def preprocess_data(file_path):
     """
-    Preprocesses the heart disease dataset with categorical mapping, missing value handling, and feature engineering.
-    
-    Args:
-        file_path (str): Path to the dataset file
-        
-    Returns:
-        tuple: (X_processed, y) - Preprocessed features and target
+    Preprocesses the heart disease dataset with the original column names
     """
     # Load the data
     if file_path.endswith('.csv'):
@@ -26,28 +21,16 @@ def preprocess_data(file_path):
     else:
         raise ValueError("Unsupported file format. Please upload CSV, Excel, or JSON.")
     
-    # Rename columns
-    df = df.rename(columns={
-        'cp': 'chest_pain_type',
-        'trestbps': 'resting_blood_pressure',
-        'chol': 'cholesterol',
-        'fbs': 'fasting_blood_sugar',
-        'restecg': 'resting_electrocardiogram',
-        'thalach': 'max_heart_rate_achieved',
-        'exang': 'exercise_induced_angina',
-        'oldpeak': 'st_depression',
-        'slope': 'st_slope',
-        'ca': 'num_major_vessels',
-        'thal': 'thalassemia'
-    })
-
+    # Ensure we have the target column
+    if 'target' not in df.columns:
+        raise ValueError("Dataset must contain a 'target' column")
+    
     # Separate features and target
     X = df.drop('target', axis=1)
     y = df['target']
     
-    # Define numeric features
-    numeric_features = ['age', 'resting_blood_pressure', 'cholesterol', 
-                        'max_heart_rate_achieved', 'st_depression']
+    # Define numeric features (using original column names)
+    numeric_features = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
     
     # Imputation and Scaling for numeric data
     numeric_transformer = Pipeline(steps=[
@@ -64,9 +47,7 @@ def preprocess_data(file_path):
         label_encoders = joblib.load(label_encoders_path)
     else:
         label_encoders = {}
-        categorical_cols = ['sex', 'chest_pain_type', 'fasting_blood_sugar',
-                            'resting_electrocardiogram', 'exercise_induced_angina',
-                            'st_slope', 'thalassemia']
+        categorical_cols = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'thal']
         for col in categorical_cols:
             if col in X.columns:
                 le = LabelEncoder()
