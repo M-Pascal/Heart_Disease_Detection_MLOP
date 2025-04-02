@@ -1,2 +1,3 @@
 venv_mlop
 __pycache__
+.env
