@@ -25,7 +25,7 @@ app.secret_key = os.getenv('SECRET_KEY')
 ensure_table_exists()
 
 # FastAPI endpoint
-FASTAPI_URL = "http://localhost:8000"
+FASTAPI_URL = "https://heart-disease-detection-mlop.onrender.com"
 
 @app.route('/')
 def index():
