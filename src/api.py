@@ -46,7 +46,7 @@ async def predict(input_data: PredictionInput):
             probabilities = model.predict_proba(input_array)
             probability_of_heart_disease = probabilities[0][1]  # Probability of class 1 (heart disease)
         else:
-            probability_of_heart_disease = None  # Some models don't have probabilities
+            probability_of_heart_disease = None
 
         # Make prediction
         prediction = model.predict(input_array)[0]
