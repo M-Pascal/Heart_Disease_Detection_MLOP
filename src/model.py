@@ -36,7 +36,7 @@ def train_model(file_path):
                  metrics=['accuracy'])
     
     # Train model
-    model.fit(X_train, y_train,
+    history = model.fit(X_train, y_train,
               epochs=50,
               batch_size=32,
               validation_data=(X_test, y_test),
@@ -49,5 +49,8 @@ def train_model(file_path):
     # Save model
     os.makedirs('models', exist_ok=True)
     model.save('models/heart_disease_model.keras')
+    
+    # Save training history for visualization
+    joblib.dump(history.history, 'models/training_history.pkl')
     
     return model, accuracy
