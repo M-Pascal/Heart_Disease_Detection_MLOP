@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import os
-from werkzeug.utils import secure_filename
 import pandas as pd
 import requests
 import joblib
@@ -8,21 +7,25 @@ from pathlib import Path
 from model import train_model
 from preprocess import preprocess_data
 from sklearn.preprocessing import LabelEncoder
+from database import (
+    clear_existing_data, 
+    save_to_database, 
+    load_from_database, 
+    ensure_table_exists,
+    count_records
+)
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+app.secret_key = os.getenv('SECRET_KEY')
 
-# Configuration
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'csv', 'xlsx', 'json'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# Initialize database table
+ensure_table_exists()
 
 # FastAPI endpoint
-FASTAPI_URL = "http://localhost:8000"  # Update if different
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+FASTAPI_URL = "http://localhost:8000"
 
 @app.route('/')
 def index():
@@ -35,7 +38,7 @@ def show_form():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        data = {  # Prepare data for FastAPI
+        data = {
             "age": int(request.form['age']),
             "sex": int(request.form['sex']),
             "cp": int(request.form['cp']),
@@ -72,26 +75,59 @@ def retrain():
         if file.filename == '':
             return jsonify({'status': 'error', 'message': 'No selected file'})
         
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
+        try:
+            # Read the uploaded file
+            if file.filename.endswith('.csv'):
+                df = pd.read_csv(file)
+            elif file.filename.endswith('.xlsx'):
+                df = pd.read_excel(file)
+            elif file.filename.endswith('.json'):
+                df = pd.read_json(file)
+            else:
+                return jsonify({'status': 'error', 'message': 'Unsupported file format'})
+            
+            # Verify required columns exist
+            required_columns = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 
+                              'restecg', 'thalach', 'exang', 'oldpeak', 
+                              'slope', 'ca', 'thal', 'target']
+            
+            if not all(col in df.columns for col in required_columns):
+                missing = [col for col in required_columns if col not in df.columns]
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Missing required columns: {", ".join(missing)}'
+                })
+            
+            # Save data to database (this will clear existing data first)
+            save_to_database(df)
+            
+            # Verify data was saved
+            record_count = count_records()
+            if record_count == 0:
+                return jsonify({
+                    'status': 'error',
+                    'message': 'No data was saved to database'
+                })
+            
+            # Load data from database and train model
+            df = load_from_database()
+            
+            # Save to temporary CSV for preprocessing
+            temp_path = 'temp_dataset.csv'
+            df.to_csv(temp_path, index=False)
             
             try:
-                X, y = preprocess_data(filepath)
-                model, accuracy = train_model(filepath)
+                # Preprocess and train
+                X, y = preprocess_data(temp_path)
+                model, accuracy = train_model(temp_path)
                 
-                categorical_cols = ['sex', 'chest_pain_type', 'fasting_blood_sugar',
-                                  'resting_electrocardiogram', 'exercise_induced_angina',
-                                  'st_slope', 'thalassemia']
-                
+                # Save label encoders
+                categorical_cols = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'thal']
                 label_encoders = {}
-                df = pd.read_csv(filepath)
                 for col in categorical_cols:
-                    if col in df.columns:
-                        le = LabelEncoder()
-                        le.fit(df[col])
-                        label_encoders[col] = le
+                    le = LabelEncoder()
+                    le.fit(df[col])
+                    label_encoders[col] = le
                 
                 os.makedirs('models', exist_ok=True)
                 joblib.dump(label_encoders, 'models/label_encoders.pkl')
@@ -100,16 +136,23 @@ def retrain():
                 return jsonify({
                     'status': 'success',
                     'message': 'Model retrained successfully!',
-                    'accuracy': accuracy_percent
+                    'accuracy': accuracy_percent,
+                    'records_used': record_count
                 })
-                
-            except Exception as e:
-                return jsonify({
-                    'status': 'error',
-                    'message': f'Error during retraining: {str(e)}'
-                })
+            finally:
+                # Clean up temp file
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
+            
+        except Exception as e:
+            return jsonify({
+                'status': 'error',
+                'message': f'Error during retraining: {str(e)}'
+            })
     
-    return render_template('retrain.html')
+    # For GET requests, show current dataset info
+    record_count = count_records()
+    return render_template('retrain.html', record_count=record_count)
 
 if __name__ == '__main__':
     app.run(debug=True)
