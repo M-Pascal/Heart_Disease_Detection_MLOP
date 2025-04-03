@@ -4,9 +4,12 @@ import pandas as pd
 import requests
 import joblib
 from pathlib import Path
+from sklearn.preprocessing import LabelEncoder
+from dotenv import load_dotenv
+
+# Local imports
 from .model import train_model
 from .preprocess import preprocess_data
-from sklearn.preprocessing import LabelEncoder
 from .database import (
     clear_existing_data, 
     save_to_database, 
@@ -14,7 +17,6 @@ from .database import (
     ensure_table_exists,
     count_records
 )
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -155,4 +157,4 @@ def retrain():
     return render_template('retrain.html', record_count=record_count)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
