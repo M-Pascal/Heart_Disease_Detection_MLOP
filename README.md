@@ -44,18 +44,18 @@ Heart_Disease_Detection_MLOP/
    └── logistic_regression.tf
 ```
 ## Technical Stack
-Backend Framework: FastAPI
-Web application: Flask, HTML, CSS, JavaScript
-Machine Learning: scikit-learn, TensorFlow
-Data Processing: pandas, numpy
-Containerization: Docker
-API Documentation: OpenAPI (Swagger UI)
+- Backend Framework: FastAPI
+- Web application: Flask, HTML, CSS, JavaScript
+- Machine Learning: scikit-learn, TensorFlow
+- Data Processing: pandas, numpy
+- Containerization: Docker
+- API Documentation: OpenAPI (Swagger UI)
 > My hosted API: [![https://heart-disease-detection-mlop.onrender.com/docs](https://heart-disease-detection-mlop.onrender.com)]
 
 ### Prerequisites
-Python 3.8 or higher
-Docker (optional, for containerized deployment)
-Git
+Python 3.8 or higher <br>
+Docker (optional, for containerized deployment)<br>
+Git <br>
 
 ## Project Installation
 1. Clone the repository:
