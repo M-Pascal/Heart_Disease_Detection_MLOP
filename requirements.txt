@@ -18,7 +18,6 @@ importlib_metadata==8.6.1
 itsdangerous==2.2.0
 Jinja2==3.1.6
 joblib==1.4.2
-keras==3.9.2
 libclang==18.1.1
 Markdown==3.7
 markdown-it-py==3.0.0
@@ -32,6 +31,8 @@ optree==0.14.1
 packaging==24.2
 pandas==2.2.3
 protobuf==5.29.4
+psycopg2==2.9.10
+psycopg2-binary==2.9.10
 Pygments==2.19.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
@@ -43,7 +44,6 @@ scipy==1.13.1
 six==1.17.0
 tensorboard==2.19.0
 tensorboard-data-server==0.7.2
-tensorflow==2.19.0
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==3.0.1
 threadpoolctl==3.6.0
