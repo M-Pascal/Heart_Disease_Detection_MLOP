@@ -49,7 +49,7 @@ Machine Learning: scikit-learn, TensorFlow
 Data Processing: pandas, numpy
 Containerization: Docker
 API Documentation: OpenAPI (Swagger UI)
-> My hosted API: [https://heart-disease-detection-mlop.onrender.com/docs](Click here.)
+> My hosted API: [https://heart-disease-detection-mlop.onrender.com/docs](Click here)
 
 ### Prerequisites
 Python 3.8 or higher
@@ -76,6 +76,7 @@ pip install -r requirements.txt
 uvicorn src.api:app --reload 
 ```
 Access it via this link: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
 2. Start the Flask Web-App using a new terminal (open new terminal):
 ```bash
 flask --app src.app.py run
