@@ -44,7 +44,7 @@ async def predict(input_data: PredictionInput):
         # Ensure the input is scaled correctly
         if hasattr(model, "predict_proba"):  
             probabilities = model.predict_proba(input_array)
-            probability_of_heart_disease = probabilities[0][1]  # Probability of class 1 (heart disease)
+            probability_of_heart_disease = probabilities[0][1]
         else:
             probability_of_heart_disease = None
 
