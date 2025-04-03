@@ -4,10 +4,20 @@ import numpy as np
 import joblib
 from pathlib import Path
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Correctly load the Random Forest model
+# Add CORS middleware to maintain compatibility
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Model path - updated to match your structure
 MODEL_PATH = os.path.join(Path(__file__).parent.parent, "models", "random_forest.pkl")
 
 try:
@@ -41,30 +51,29 @@ async def predict(input_data: PredictionInput):
             input_data.thal
         ]])
 
-        # Ensure the input is scaled correctly
+        # Prediction logic
         if hasattr(model, "predict_proba"):  
             probabilities = model.predict_proba(input_array)
-            probability_of_heart_disease = probabilities[0][1]
+            probability = probabilities[0][1]
         else:
-            probability_of_heart_disease = None
+            probability = None
 
-        # Make prediction
         prediction = model.predict(input_array)[0]
 
-        # Generate a more detailed response
+        # Response format (matches what Flask app expects)
         response = {
             "prediction": int(prediction),
-            "probability": probability_of_heart_disease if probability_of_heart_disease is not None else "Not available",
+            "probability": probability if probability is not None else "Not available",
             "message": ""
         }
 
         if prediction == 1:
-            if probability_of_heart_disease is not None and probability_of_heart_disease > 0.6:
+            if probability is not None and probability > 0.6:
                 response["message"] = "High risk! Urgent medical consultation needed."
             else:
                 response["message"] = "You are more likely to get heart disease. Consult a doctor."
         else:
-            if probability_of_heart_disease is not None and probability_of_heart_disease < 0.4:
+            if probability is not None and probability < 0.4:
                 response["message"] = "You seem very healthy. Keep maintaining your lifestyle!"
             else:
                 response["message"] = "Low risk of heart disease, but consider regular checkups."
