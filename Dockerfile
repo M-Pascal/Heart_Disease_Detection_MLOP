@@ -1,32 +1,34 @@
-FROM python:3.9-slim
+FROM python:3.8-slim
 
 WORKDIR /app
 
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/src
+
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
     python3-dev \
+    libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Ensure pip is upgraded
-RUN pip install --upgrade pip
-
-# Install requirements (including gunicorn)
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application
+# Copy application code
 COPY . .
 
-# Create directories
-RUN mkdir -p /app/models /app/data
+# Create necessary directories
+RUN mkdir -p /app/models /app/data /app/logs
 
-# Set environment variables
-ENV FLASK_APP=app.py
-ENV FLASK_ENV=production
-ENV PATH="/app/.local/bin:${PATH}"
+# Set up user permissions
+RUN useradd -m appuser && chown -R appuser /app
+USER appuser
 
 EXPOSE 5000
 
-# Use full path to gunicorn
-CMD ["/usr/local/bin/gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+# Run Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--pythonpath", "/app", "src.wsgi:app"]

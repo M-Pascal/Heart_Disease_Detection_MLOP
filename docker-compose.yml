@@ -3,20 +3,21 @@ services:
     build: .
     ports:
       - "5000:5000"
-    env_file:
-      - .env
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=60b5311eb66c1c45a2ebf6170978bec798aa172565872f977024399c3de66353
     volumes:
-      - ./models:/app/models
-      - ./data:/app/data
-    restart: unless-stopped
+      - .:/app
+    depends_on:
+      - redis
 
-  # # Optional Locust load testing service
-  # locust:
-  #   image: locustio/locust
-  #   ports:
-  #     - "8089:8089"
-  #   volumes:
-  #     - ./locust:/locust
-  #   command: -f /locust/locustfile.py --host http://web:5000
-  #   depends_on:
-  #     - web
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+    driver: local
