@@ -7,6 +7,7 @@ This project aims to develop a machine learning model to predict the likelihood 
 Early detection of heart disease can save lives by enabling timely intervention. A predictive model helps identify high-risk individuals, supports medical decision-making, and improves preventive care—reducing healthcare costs and improving patient outcomes.
 
 ## Dataset
+[https://www.kaggle.com/code/desalegngeb/heart-disease-predictions/notebook](Click here) to acces the dataset from Kaggle platform.
 ### Key features:
 - Heart disease Likelihood : Predicting whether you person is more likely to have heart related disease or not.
 - Model Training: Enables users to train or retrain models using custom datasets.
@@ -86,10 +87,12 @@ Access web-page via this link: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ```bash
 docker build -t heart_disease_detection_mlop-web
 ```
+
 2. Run the container:
 ```bash
 docker run -p 5000:5000 heart_disease_detection_mlop-web
 ```
+
 The application will be available at `http://localhost:5000`
 
 
