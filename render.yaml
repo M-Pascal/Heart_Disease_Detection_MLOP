@@ -1,22 +1,14 @@
 services:
-  # Flask Web Application
+  # Flask Web App (Updated start command to use `waitress`)
   - type: web
     name: heart-disease-flask
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --worker-tmp-dir /dev/shm --bind 0.0.0.0:$PORT src.app:app
-    envVars:
-      - key: DATABASE_URL
-        value: postgresql://root:kp0rW6ieadQrvsb4RGR1XUyvaaguwaCb@dpg-cvm3tdp5pdvs739gh7mg-a.oregon-postgres.render.com/heart_database_p3mz
-      - key: FASTAPI_URL
-        value: https://heart-disease-api.onrender.com
+    startCommand: python -m waitress --host 0.0.0.0 --port $PORT src.app:app
 
-  # FastAPI Service
+  # FastAPI Service (No change needed)
   - type: web
     name: heart-disease-api
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: python -m uvicorn src.api:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: DATABASE_URL
-        value: postgresql://root:kp0rW6ieadQrvsb4RGR1XUyvaaguwaCb@dpg-cvm3tdp5pdvs739gh7mg-a.oregon-postgres.render.com/heart_database_p3mz
