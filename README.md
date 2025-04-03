@@ -99,7 +99,7 @@ The application will be available at `http://localhost:5000`
 
 # Live link & Demo-Video
 ## Live link for the project:
-Click this link to access [![live prediction](https://heart-disease-detection-mlop-1.onrender.com)]
+Click this link to access [live prediction](https://heart-disease-detection-mlop-1.onrender.com)
 
 ## Demo-Video
 [![Watch the video](https://img.youtube.com/vi/5aYpkLfkgRE/maxresdefault.jpg)](https://youtu.be/5aYpkLfkgRE)
