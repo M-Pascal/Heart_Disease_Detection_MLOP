@@ -49,7 +49,7 @@ Machine Learning: scikit-learn, TensorFlow
 Data Processing: pandas, numpy
 Containerization: Docker
 API Documentation: OpenAPI (Swagger UI)
-> My hosted API: [https://heart-disease-detection-mlop.onrender.com/docs](Click here)
+> My hosted API: [![https://heart-disease-detection-mlop.onrender.com/docs](https://heart-disease-detection-mlop.onrender.com)]
 
 ### Prerequisites
 Python 3.8 or higher
@@ -96,10 +96,13 @@ docker run -p 5000:5000 heart_disease_detection_mlop-web
 
 The application will be available at `http://localhost:5000`
 
+# Live link & Demo-Video
+## Live link for the project:
+Click this link to access [![live prediction](https://heart-disease-detection-mlop-1.onrender.com)]
 
 ## Demo-Video
 [![Watch the video](https://img.youtube.com/vi/5aYpkLfkgRE/maxresdefault.jpg)](https://youtu.be/5aYpkLfkgRE)
-### [Demo video_Template](https://youtu.be/5aYpkLfkgRE)
+### [Live Demo-video Of the project](https://youtu.be/5aYpkLfkgRE)
 
 ### Author
 > Done by Pascal Mugisha <br>
