@@ -80,6 +80,19 @@ Access it via this link: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs
 flask --app src.app.py run
 ```
 Access web-page via this link: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+## Running with Docker
+1. Build the Docker image:
+```bash
+docker build -t heart_disease_detection_mlop-web
+```
+2. Run the container:
+```bash
+docker run -p 5000:5000 heart_disease_detection_mlop-web
+```
+The application will be available at `http://localhost:5000`
+
+
 ## Demo-Video
 [![Watch the video](https://img.youtube.com/vi/5aYpkLfkgRE/maxresdefault.jpg)](https://youtu.be/5aYpkLfkgRE)
 ### [Demo video_Template](https://youtu.be/5aYpkLfkgRE)
