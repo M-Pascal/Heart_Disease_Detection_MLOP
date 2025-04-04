@@ -50,7 +50,7 @@ Heart_Disease_Detection_MLOP/
 - Data Processing: pandas, numpy
 - Containerization: Docker
 - API Documentation: OpenAPI (Swagger UI)
-> My hosted API: [![https://heart-disease-detection-mlop.onrender.com/docs](https://heart-disease-detection-mlop.onrender.com)]
+> My hosted API: [![https://heart-disease-detection-mlop.onrender.com/docs](https://heart-disease-detection-mlop.onrender.com/docs)]
 
 ### Prerequisites
 Python 3.8 or higher <br>
@@ -65,7 +65,7 @@ git clone https://github.com/M-Pascal/Heart_Disease_Detection_MLOP.git
 2. Create Virtual environment and activate it (for Window users):
 ``` bash
 python -m venv myenv
-source venv/Script/activate
+source venv/Scripts/activate
 ```
 3. Install the dependencies on virtual environment using:
 ``` bash
