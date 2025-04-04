@@ -15,28 +15,12 @@
             <a href="{{ url_for('index') }}"><i class="ri-arrow-left-line"></i> Back to Home</a>
         </div>
 
-        <!-- Flash messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="flash-{{ category }}">
-                            <i class="ri-{{ 'checkbox-circle-line' if category == 'success' else 'error-warning-line' }}"></i>
-                            {{ message }}
-                            {% if category == 'success' and accuracy %}
-                                <span class="accuracy-display">Accuracy: {{ accuracy }}</span>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
-
         <div class="retrain-form-container">
             <h1 class="form-title">Retrain Model</h1>
             <p class="form-subtitle">Upload your dataset to improve the model</p>
             
-            <form class="upload-form" action="{{ url_for('retrain') }}" method="post" enctype="multipart/form-data">
+            <form class="upload-form" method="post" enctype="multipart/form-data">
+                <!-- Remove action attribute to prevent default form submission -->
                 <div class="form-group">
                     <label for="dataset-upload" class="file-upload-label">
                         <i class="ri-upload-cloud-2-line"></i>
