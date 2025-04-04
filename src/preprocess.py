@@ -15,12 +15,15 @@ logger = logging.getLogger(__name__)
 def load_data(file_path):
     """Load data from different file formats"""
     try:
-        if file_path.endswith('.csv'):
-            df = pd.read_csv(file_path)
-        elif file_path.endswith(('.xlsx', '.xls')):
-            df = pd.read_excel(file_path)
-        elif file_path.endswith('.json'):
-            df = pd.read_json(file_path)
+        # Convert Path object to string if needed
+        file_path_str = str(file_path)
+        
+        if file_path_str.endswith('.csv'):
+            df = pd.read_csv(file_path_str)
+        elif file_path_str.endswith(('.xlsx', '.xls')):
+            df = pd.read_excel(file_path_str)
+        elif file_path_str.endswith('.json'):
+            df = pd.read_json(file_path_str)
         else:
             raise ValueError("Unsupported file format. Please upload CSV, Excel, or JSON.")
         
@@ -42,12 +45,11 @@ def validate_data(df):
         missing = [col for col in required_columns if col not in df.columns]
         raise ValueError(f"Missing required columns: {', '.join(missing)}")
     
-    # Additional validation checks can be added here
     return True
 
 def preprocess_data(file_path):
     """
-    Preprocesses the heart disease dataset with the original column names
+    Preprocesses the heart disease dataset
     """
     try:
         # Load the data
@@ -78,10 +80,8 @@ def preprocess_data(file_path):
         
         if label_encoders_path.exists():
             label_encoders = joblib.load(label_encoders_path)
-            logger.info("Loaded existing label encoders")
         else:
             label_encoders = {}
-            logger.info("Creating new label encoders")
         
         # Apply categorical encoding
         for col in categorical_features:
@@ -91,9 +91,7 @@ def preprocess_data(file_path):
                 X[col] = label_encoders[col].transform(X[col])
         
         # Save label encoders if they were updated
-        if not label_encoders_path.exists():
-            joblib.dump(label_encoders, label_encoders_path)
-            logger.info("Saved new label encoders")
+        joblib.dump(label_encoders, label_encoders_path)
         
         logger.info("Data preprocessing completed successfully")
         return X, y
