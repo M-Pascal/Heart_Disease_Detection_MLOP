@@ -78,32 +78,38 @@ def predict():
     """Handle prediction requests"""
     try:
         data = {
-            "age": int(float(request.form['age'])),
-            "sex": int(float(request.form['sex'])),
-            "cp": int(float(request.form['cp'])),
-            "trestbps": int(float(request.form['trestbps'])),
-            "chol": int(float(request.form['chol'])),
-            "fbs": int(float(request.form['fbs'])),
-            "restecg": int(float(request.form['restecg'])),
-            "thalach": int(float(request.form['thalach'])),
-            "exang": int(float(request.form['exang'])),
+            "age": int(request.form['age']),
+            "sex": int(request.form['sex']),
+            "cp": int(request.form['cp']),
+            "trestbps": int(request.form['trestbps']),
+            "chol": int(request.form['chol']),
+            "fbs": int(request.form['fbs']),
+            "restecg": int(request.form['restecg']),
+            "thalach": int(request.form['thalach']),
+            "exang": int(request.form['exang']),
             "oldpeak": float(request.form['oldpeak']),
-            "slope": int(float(request.form['slope'])),
-            "ca": int(float(request.form['ca'])),
-            "thal": int(float(request.form['thal']))
+            "slope": int(request.form['slope']),
+            "ca": int(request.form['ca']),
+            "thal": int(request.form['thal'])
         }
 
+        # Fast api path
+        FASTAPI_URL = "https://heart-disease-detection-mlop.onrender.com"
+        
         response = requests.post(
             f"{FASTAPI_URL}/predict",
             json=data,
-            timeout=10
+            headers={"Content-Type": "application/json"}
         )
         response.raise_for_status()
-
+        
         result = response.json()
         flash(result.get('message', 'Prediction completed'), 'success')
         return jsonify(result)
 
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Request to FastAPI failed: {str(e)}")
+        return jsonify({"error": f"Prediction service unavailable: {str(e)}"}), 503
     except Exception as e:
         logger.error(f"Prediction error: {str(e)}")
         return jsonify({"error": str(e)}), 500
