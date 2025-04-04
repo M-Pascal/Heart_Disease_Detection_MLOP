@@ -41,7 +41,7 @@ from .preprocess import preprocess_data
 ensure_table_exists()
 
 # FastAPI endpoint
-FASTAPI_URL = os.getenv('FASTAPI_URL', 'http://127.0.0.1:8000')
+FASTAPI_URL = os.getenv('FASTAPI_URL', 'https://heart-disease-detection-mlop.onrender.com')
 
 @app.route('/')
 def index():
