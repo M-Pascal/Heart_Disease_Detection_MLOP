@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Model path - updated to match your structure
+# Model path
 MODEL_PATH = os.path.join(Path(__file__).parent.parent, "models", "random_forest.pkl")
 
 try:
@@ -41,9 +41,9 @@ class PredictionInput(BaseModel):
     thal: int
 
 @app.post("/predict")
-async def predict(input_data: PredictionInput):
+async def predict(input_data: HeartDiseaseInput):
     try:
-        input_array = np.array([[   
+        input_array = np.array([[
             input_data.age, input_data.sex, input_data.cp,
             input_data.trestbps, input_data.chol, input_data.fbs,
             input_data.restecg, input_data.thalach, input_data.exang,
@@ -51,32 +51,23 @@ async def predict(input_data: PredictionInput):
             input_data.thal
         ]])
 
-        # Prediction logic
-        if hasattr(model, "predict_proba"):  
-            probabilities = model.predict_proba(input_array)
-            probability = probabilities[0][1]
+        if hasattr(model, "predict_proba"):
+            probability = model.predict_proba(input_array)[0][1]
         else:
             probability = None
 
         prediction = model.predict(input_array)[0]
 
-        # Response format (matches what Flask app expects)
         response = {
-            "prediction": int(prediction),
-            "probability": probability if probability is not None else "Not available",
+            "result": int(prediction),
+            "probability": float(probability) if probability is not None else None,
             "message": ""
         }
 
         if prediction == 1:
-            if probability is not None and probability > 0.6:
-                response["message"] = "High risk! Urgent medical consultation needed."
-            else:
-                response["message"] = "You are more likely to get heart disease. Consult a doctor."
+            response["message"] = "Potential heart disease risk detected" if probability <= 0.6 else "High heart disease risk detected"
         else:
-            if probability is not None and probability < 0.4:
-                response["message"] = "You seem very healthy. Keep maintaining your lifestyle!"
-            else:
-                response["message"] = "Low risk of heart disease, but consider regular checkups."
+            response["message"] = "Low risk of heart disease" if probability >= 0.4 else "Very low risk of heart disease"
 
         return response
 
