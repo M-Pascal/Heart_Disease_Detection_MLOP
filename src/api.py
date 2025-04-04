@@ -41,7 +41,7 @@ class PredictionInput(BaseModel):
     thal: int
 
 @app.post("/predict")
-async def predict(input_data: HeartDiseaseInput):
+async def predict(input_data: PredictionInput):
     try:
         input_array = np.array([[
             input_data.age, input_data.sex, input_data.cp,
