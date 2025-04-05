@@ -102,7 +102,9 @@ The application will be available at `http://localhost:5000`
 Click this link to access [Live Prediction](https://heart-disease-detection-mlop-1.onrender.com/)
 
 ## Demo-Video
+[![Watch the video](https://img.youtube.com/vi/B41BC34lqSI/maxresdefault.jpg)](https://youtu.be/B41BC34lqSI)
 
+#### [Demo-video](https://youtu.be/B41BC34lqSI)
 
 ### Author
 > Done by Pascal Mugisha <br>
